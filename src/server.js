@@ -3,7 +3,7 @@ const http = require('http');
 const app = express();
 var server = http.Server(app);
 var io = require('socket.io')(server);
-
+var router = require('./router/indexRouter');
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', "./src/views");
@@ -12,9 +12,7 @@ server.listen(3333, ()=>{
   console.log('Server is running at http://localhost:3333');
 });
 
-app.get("/", (req, res) => {
-  res.render("trangchu");
-});
+router(app);
 
 // tạo socket kết nối với sêrver
 io.on("connection", (socket)=>{
