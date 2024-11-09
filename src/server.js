@@ -4,6 +4,30 @@ const app = express();
 var server = http.Server(app);
 var io = require('socket.io')(server);
 var router = require('./router/indexRouter');
+const connection = require("./config/conMongoose");
+
+connection();
+const sensorModel = require("./model/sensorModel");
+async function main() {
+  
+  const newSensorData = new sensorModel({
+      temperature: 25.5,
+      soil: 45,
+      humidity: 60
+  });
+
+  // Lưu tài liệu vào MongoDB
+  try {
+      const savedData = await newSensorData.save();
+      console.log("Data saved successfully:", savedData);
+  } catch (error) {
+      console.error("Error saving data:", error);
+  }
+}
+
+// Chạy hàm main
+main();
+
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', "./src/views");
