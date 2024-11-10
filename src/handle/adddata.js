@@ -6,7 +6,7 @@ async function adddata(sersorClass) {
       temperature: sersorClass.temperature,
       soil: sersorClass.soil,
       humidity: sersorClass.humidity,
-      light : sensorClass.light
+      light : sersorClass.light
   });
 
   try {
@@ -19,7 +19,6 @@ async function adddata(sersorClass) {
 function setIntervalSaveData(sensorClass, timeInterval){
     setInterval(() => {
         adddata(sensorClass);  
-        sensorClass.displayInfo();
     }, timeInterval * 1000 * 60);
 }
 module.exports = {

@@ -7,11 +7,10 @@ class SensorClass {
         this.light = light ;
     }
 
-    displayInfo() {
-        console.log(`Temperature: ${this.temperature}°C`);
-        console.log(`Soil: ${this.soil}%`);
-        console.log(`Humidity: ${this.humidity}%`);
-        console.log(`Light: ${this.light}%`);
+    toString() {
+        
+        return (`Temperature: ${this.temperature}°C : Soil: ${this.soil}% : Humidity: ${this.humidity}% : Light: ${this.light}% ` ) ;
+        
     }
 }
 
