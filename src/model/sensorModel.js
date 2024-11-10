@@ -5,10 +5,10 @@ const schemaSensor = new schema({
     temperature : Number,
     soil : Number,
     humidity : Number,
-    createDate : Date
+    light : Number
 },{
     timestamps : true
 })
 
-const sensorModel = mongoose.model("sensor",schemaSensor, "sensors");
+const sensorModel = mongoose.model("sensors",schemaSensor,);
 module.exports = sensorModel;
