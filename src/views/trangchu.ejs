@@ -7,7 +7,7 @@
     <script src="socket.io/socket.io.js"></script>
     <script>
         // trang page call to socket.io veraver
-        var socket = io("http://localhost:3333");
+        var socket = io("http://localhost:3333/admin");
         
         socket.on("Server-response-color", (data)=>{
             document.querySelector("body").style.background = data;
