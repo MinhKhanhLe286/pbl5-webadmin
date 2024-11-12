@@ -18,10 +18,13 @@ const authController = {
             const user = await newUser.save();
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json({ message: "Server error, please try again later" });
         }
     },
-
+    // Register [GET]/authentication/register
+    register: (req,res)=>{
+        res.render("admin/register")
+    },
     loginUser: async (req, res) => {
         try {
             const user = await User.findOne({
@@ -38,6 +41,9 @@ const authController = {
         } catch (error) {
             res.status(500).json(error);
         }
+    },
+    login : (req,res)=>{
+        res.render("admin/login")
     }
 };
 
