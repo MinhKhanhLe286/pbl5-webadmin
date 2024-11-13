@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Stream</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        /* Đảm bảo rằng body và html có chiều cao 100% để container có thể sử dụng toàn bộ không gian màn hình */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;  /* Căn giữa theo chiều ngang */
+            align-items: center;      /* Căn giữa theo chiều dọc */
+            height: 100vh;            /* Chiều cao của container chiếm toàn bộ viewport */
+            flex-direction: column;   /* Đảm bảo các phần tử con (h1 và ảnh) xếp thành cột */
+        }
+
+        #video-stream {
+            width: 100%;
+            max-width: 600px;         /* Giới hạn kích thước ảnh tối đa */
+            border: 1px solid black;  /* Đặt border cho ảnh */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Real-time Camera</h1>
+        <img id="video-stream" src alt="Video Stream">
+    </div>
+    <script>
+        const socket = io();
+        socket.on('Server_send_Base64_from_python', (data) => {
+            document.getElementById('video-stream').src = 'data:image/jpeg;base64,' + data;
+        });
+    </script>
+</body>
+</html>

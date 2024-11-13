@@ -5,7 +5,7 @@ const char *ssid = "Nha tro 26DC";
 const char *password = "0905070017";
 
 // Địa chỉ server Node.js
-const char *serverUrl = "http://<Node-Server-IP>:3333/data"; // Thay <Node-Server-IP> bằng IP của máy chủ Node.js
+const char *serverUrl = "http://192.168.22.201:3333/data"; // Thay <Node-Server-IP> bằng IP của máy chủ Node.js
 
 void setup()
 {

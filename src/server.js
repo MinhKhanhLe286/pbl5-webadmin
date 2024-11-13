@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 var routerAdmin = require('./router/admin');
 const connection = require("./config/conMongoose");
 const {setIntervalSaveData} = require("./handle/adddata");
-var sensorClass = require("./class/sensorClass");
+// var sensorClass = require("./class/sensorClass");
 const bodyParser = require('body-parser');
 const SocketServices = require("./services/chat.service")
 require('dotenv').config();
