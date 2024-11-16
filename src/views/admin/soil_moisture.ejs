@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Soil Moisture</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+            rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
+        <link rel="stylesheet" type="text/css"
+            href="/admin/css/soil_moisture.css">
+        <script src="/admin/soil_moisture.js"></script>
+    </head>
+    <body>
+        <header class="top-bar">
+            <div class="logo">
+                <i class="ri-home-wifi-fill"></i>
+                <h2>SmartGarden</h2>
+            </div>
+            <div class="user-info">
+                <i class="ri-user-fill"></i>
+                <span>Trần Phước Phú - admin</span>
+            </div>
+        </header>
+        <div class="container">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="../home/home.html"><i
+                                class="ri-home-4-line"></i> Home</a></li>
+                    <li><a href="../user/user.html"><i class="ri-user-line"></i>
+                            User</a></li>
+                    <li><a href="../temperature/temperature.html"><i
+                                class="ri-thermometer-line"></i>
+                            Temperature</a></li>
+                    <li><a href="../air-humidity/air-humidity.html"><i
+                                class="ri-leaf-line"></i> Air Humidity</a></li>
+                    <li><a href="../light/light.html"><i
+                                class="ri-sun-line"></i> Light</a></li>
+                    <li><a href="../soil-moisture/soil-moisture.html"
+                            class="active"><i class="ri-drop-line"></i> Soil
+                            Moisture</a></li>
+                    <li><a href="../control/control.html"><i
+                                class="ri-remote-control-line"></i>
+                            Control</a></li>
+                    <li><a href="../camera/camera.html"><i
+                                class="ri-camera-line"></i> Camera</a></li>
+                    <li><a href="../statistic/statistic.html"><i
+                                class="ri-bar-chart-line"></i>
+                            Statistic</a></li>
+                    <li><a href="../chat/chat.html"><i
+                                class="ri-message-line"></i> Chat</a></li>
+                    <li><a href="../logout/logout.html"><i
+                                class="ri-logout-box-line"></i> Logout</a></li>
+                </ul>
+            </aside>
+            <main class="main-content">
+                <section id="soil-moisture" class="content-section">
+                    <h1>Soil Moisture</h1>
+                    <p>Monitor the soil moisture levels over time.</p>
+                    <div class="moisture-info">
+                        <div id="moisture-display" class="moisture-box">
+                            <div class="moisture-card">
+                                <div class="moisture-icon">
+                                    <i class="ri-drop-line"></i>
+                                </div>
+                                <div class="moisture-info">
+                                    <h3>Current Soil Moisture</h3>
+                                    <span
+                                        id="moisture-value">Loading...</span><span
+                                        id="moisture-unit">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="moisture-controls">
+                        <div class="moisture-time-selection-row">
+                            <label for="start-time-moisture">Start Time:</label>
+                            <input type="datetime-local"
+                                id="start-time-moisture"
+                                name="start-time-moisture">
+                            <label for="end-time-moisture">End Time:</label>
+                            <input type="datetime-local" id="end-time-moisture"
+                                name="end-time-moisture">
+                        </div>
+                        <div class="moisture-time-selection-button">
+                            <button id="filter-moisture-data-btn">Filter
+                                Data</button>
+                        </div>
+                    </div>
+                    <div class="moisture-chart-container">
+                        <h2>Soil Moisture (%)</h2>
+                        <canvas id="moisture-chart-canvas"></canvas>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="soil-moisture.js"></script>
+    </body>
+</html>

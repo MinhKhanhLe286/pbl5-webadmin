@@ -3,17 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ESP32-CAM Live Stream</title>
-        <script src="/socket.io/socket.io.js"></script>
+        <title>Control Panel</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
             rel="stylesheet">
         <link
             href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
             rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
-        <link rel="stylesheet" type="text/css" href="/admin/css/camera.css">
-        <script src="/admin/camera.js"></script>
+            <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
+            <link rel="stylesheet" type="text/css"
+                href="/admin/css/control.css">
+            <script src="/admin/control.js"></script>
     </head>
     <body>
         <header class="top-bar">
@@ -29,9 +29,8 @@
         <div class="container">
             <nav class="sidebar">
                 <ul>
-                    <li><a href="/admin/home"><i class="ri-home-4-line"></i>
-                            Home</a></li>
-
+                    <li><a href="../home/home.html"><i
+                                class="ri-home-4-line"></i> Home</a></li>
                     <li><a href="../user/user.html"><i class="ri-user-line"></i>
                             User</a></li>
                     <li><a href="../temperature/temperature.html"><i
@@ -43,10 +42,10 @@
                                 class="ri-sun-line"></i> Light</a></li>
                     <li><a href="../soil-moisture/soil-moisture.html"><i
                                 class="ri-drop-line"></i> Soil Moisture</a></li>
-                    <li><a href="../control/control.html"><i
+                    <li><a href="../control/control.html" class="active"><i
                                 class="ri-remote-control-line"></i>
                             Control</a></li>
-                    <li><a href="../camera/camera.html" class="active"><i
+                    <li><a href="../camera/camera.html"><i
                                 class="ri-camera-line"></i> Camera</a></li>
                     <li><a href="../statistic/statistic.html"><i
                                 class="ri-bar-chart-line"></i>
@@ -58,29 +57,31 @@
                 </ul>
             </nav>
             <main class="main-content">
-                <section id="camera" class="content-section">
-                    <h1>ESP32-CAM Live Stream</h1>
-                    <p>View live camera in front of smart garden door via ESP 32
-                        Cam.</p>
-                    <div class="camera-container">
-                        <div class="video-frame">
-                            <img id="esp32-cam-feed" src
-                                alt="Khung Video ESP32-CAM Stream" />
+                <section id="control" class="content-section">
+                    <div class="control-container">
+                        <div id="mode-container">
+                            <h1>Control Panel</h1>
+                            <p id="current-mode">Current Mode: <strong>Auto
+                                    Mode</strong></p>
+                            <button id="toggle-mode-btn">Switch to Manual
+                                Mode</button>
                         </div>
-                        <!-- <div class="camera-controls">
-                        <label for="esp32-ip">Enter ESP32-CAM IP Address:</label>
-                        <input type="text" id="esp32-ip" placeholder="e.g., http://192.168.1.100">
-                        <button id="load-video-btn">Load Stream</button>
-                    </div> -->
+                        <div id="manual-controls" style="display: none;">
+                            <button id="toggle-auto-btn">Switch to Auto
+                                Mode</button>
+                            <div class="control-buttons">
+                                <button id="fan-control-btn">Turn Off
+                                    Fan</button>
+                                <button id="pump-control-btn">Turn Off
+                                    Pump</button>
+                                <button id="roof-control-btn">Close
+                                    Roof</button>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </main>
         </div>
-        <script>
-        const socket = io();
-        socket.on('Server_send_Base64_from_python', (data) => {
-            document.getElementById('esp32-cam-feed').src = 'data:image/jpeg;base64,' + data;
-        });
-    </script>
+        <script src="control.js"></script>
     </body>
 </html>

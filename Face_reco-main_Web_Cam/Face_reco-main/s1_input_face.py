@@ -26,7 +26,7 @@ def capture_images(user_name):
         return
 
     count = 0  # Đếm số ảnh đã chụp
-    max_images = 30  # Số lượng ảnh cần chụp
+    max_images = 100  # Số lượng ảnh cần chụp
     capture_interval = 0.2
 
     print(f"Đang chụp ảnh cho {user_name}...")

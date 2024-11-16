@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ESP32-CAM Live Stream</title>
-        <script src="/socket.io/socket.io.js"></script>
+        <title>Light Intensity</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
             rel="stylesheet">
@@ -12,8 +11,9 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
             rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
-        <link rel="stylesheet" type="text/css" href="/admin/css/camera.css">
-        <script src="/admin/camera.js"></script>
+        <link rel="stylesheet" type="text/css"
+            href="/admin/css/light.css">
+        <script src="/admin/light.js"></script>
     </head>
     <body>
         <header class="top-bar">
@@ -27,11 +27,10 @@
             </div>
         </header>
         <div class="container">
-            <nav class="sidebar">
+            <aside class="sidebar">
                 <ul>
-                    <li><a href="/admin/home"><i class="ri-home-4-line"></i>
-                            Home</a></li>
-
+                    <li><a href="../home/home.html"><i
+                                class="ri-home-4-line"></i> Home</a></li>
                     <li><a href="../user/user.html"><i class="ri-user-line"></i>
                             User</a></li>
                     <li><a href="../temperature/temperature.html"><i
@@ -39,14 +38,14 @@
                             Temperature</a></li>
                     <li><a href="../air-humidity/air-humidity.html"><i
                                 class="ri-leaf-line"></i> Air Humidity</a></li>
-                    <li><a href="../light/light.html"><i
+                    <li><a href="../light/light.html" class="active"><i
                                 class="ri-sun-line"></i> Light</a></li>
                     <li><a href="../soil-moisture/soil-moisture.html"><i
                                 class="ri-drop-line"></i> Soil Moisture</a></li>
                     <li><a href="../control/control.html"><i
                                 class="ri-remote-control-line"></i>
                             Control</a></li>
-                    <li><a href="../camera/camera.html" class="active"><i
+                    <li><a href="../camera/camera.html"><i
                                 class="ri-camera-line"></i> Camera</a></li>
                     <li><a href="../statistic/statistic.html"><i
                                 class="ri-bar-chart-line"></i>
@@ -56,31 +55,48 @@
                     <li><a href="../logout/logout.html"><i
                                 class="ri-logout-box-line"></i> Logout</a></li>
                 </ul>
-            </nav>
+            </aside>
             <main class="main-content">
-                <section id="camera" class="content-section">
-                    <h1>ESP32-CAM Live Stream</h1>
-                    <p>View live camera in front of smart garden door via ESP 32
-                        Cam.</p>
-                    <div class="camera-container">
-                        <div class="video-frame">
-                            <img id="esp32-cam-feed" src
-                                alt="Khung Video ESP32-CAM Stream" />
+                <section id="light" class="content-section">
+                    <h1>Light Intensity</h1>
+                    <p>Monitor the light intensity over time.</p>
+                    <div class="light-info">
+                        <div id="light-display" class="light-box">
+                            <div class="light-card">
+                                <div class="light-icon">
+                                    <i class="ri-sun-line"></i>
+                                </div>
+                                <div class="light-info">
+                                    <h3>Current Light Intensity</h3>
+                                    <span
+                                        id="light-value">Loading...</span><span
+                                        id="light-unit">Lux</span>
+                                </div>
+                            </div>
                         </div>
-                        <!-- <div class="camera-controls">
-                        <label for="esp32-ip">Enter ESP32-CAM IP Address:</label>
-                        <input type="text" id="esp32-ip" placeholder="e.g., http://192.168.1.100">
-                        <button id="load-video-btn">Load Stream</button>
-                    </div> -->
+                    </div>
+                    <div class="light-controls">
+                        <div class="light-time-selection-row">
+                            <label for="start-time-light">Start Time:</label>
+                            <input type="datetime-local" id="start-time-light"
+                                name="start-time-light">
+                            <label for="end-time-light">End Time:</label>
+                            <input type="datetime-local" id="end-time-light"
+                                name="end-time-light">
+                        </div>
+                        <div class="light-time-selection-button">
+                            <button id="filter-light-data-btn">Filter
+                                Data</button>
+                        </div>
+                    </div>
+                    <div class="light-chart-container">
+                        <h2>Light Intensity (Lux)</h2>
+                        <canvas id="light-chart-canvas"></canvas>
                     </div>
                 </section>
             </main>
         </div>
-        <script>
-        const socket = io();
-        socket.on('Server_send_Base64_from_python', (data) => {
-            document.getElementById('esp32-cam-feed').src = 'data:image/jpeg;base64,' + data;
-        });
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="light.js"></script>
     </body>
 </html>

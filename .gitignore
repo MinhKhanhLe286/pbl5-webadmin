@@ -1,2 +1,5 @@
 /node_modules
 /package-lock.json
+/Face_reco-main_Web_Cam/Face_reco-main/.idea
+/Face_reco-main_Web_Cam/Face_reco-main/__pycache__
+/Face_reco-main_Web_Cam/Face_reco-main/env

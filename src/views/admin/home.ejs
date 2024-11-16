@@ -1,37 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <section id="home" class="content-section">
-        <div class="home-container">
-            <h1>Welcome to Smart Garden System</h1>
-            <p>Trang web này được thiết kế để giúp bạn theo dõi và điều khiển các thiết bị trong hệ thống vườn thông minh một cách dễ dàng và tiện lợi.</p>
-            
-            <h2>Hướng Dẫn Sử Dụng</h2>
-            <div class="guide">
-                <h3>1. Giám sát các thông số</h3>
-                <p>Truy cập các trang như <strong>Temperature</strong>, <strong>Air-humidity</strong>, <strong>Light</strong>, <strong>Soil-moisture</strong> để xem dữ liệu hiện tại và biểu đồ trực quan.</p>
-    
-                <h3>2. Điều khiển thiết bị</h3>
-                <p>Sử dụng trang <strong>Control</strong> để bật/tắt quạt, bơm nước hoặc đóng/mở mái che. Hệ thống hỗ trợ chế độ tự động và thủ công.</p>
-    
-                <h3>3. Theo dõi camera</h3>
-                <p>Truy cập trang <strong>Camera</strong> để quan sát video trực tiếp từ ESP32-CAM được gắn ở phía trước cửa của hệ thống.</p>
-    
-                <h3>4. Nhắn tin</h3>
-                <p>Dùng trang <strong>Chat</strong> để giao tiếp với nhau.</p>
-    
-                <h3>5. Thống kê dữ liệu</h3>
-                <p>Truy cập <strong>Statistic</strong> để xem các biểu đồ thống kê dữ liệu trong các khoảng thời gian khác nhau.</p>
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - SmartGarden Dashboard</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+            rel="stylesheet">
+        <script>src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"</script>
+        <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
+        <link rel="stylesheet" type="text/css" href="/admin/css/home.css">
+    </head>
+    <body>
+        <div class="sidebar">
+            <ul>
+                <li><a href="home.html" class="active"><i
+                            class="ri-home-4-line"></i> Home</a></li>
+                <li><a href="../user/user.html"><i class="ri-user-line"></i>
+                        User</a></li>
+                <li><a href="../temperature/temperature.html"><i
+                            class="ri-thermometer-line"></i>
+                        Temperature</a></li>
+                <li><a href="../air-humidity/air-humidity.html"><i
+                            class="ri-leaf-line"></i> Air Humidity</a></li>
+                <li><a href="../light/light.html"><i class="ri-sun-line"></i>
+                        Light</a></li>
+                <li><a href="../soil-moisture/soil-moisture.html"><i
+                            class="ri-drop-line"></i> Soil Moisture</a></li>
+                <li><a href="../control/control.html"><i
+                            class="ri-remote-control-line"></i> Control</a></li>
+                <li><a href="../camera/camera.html"><i
+                            class="ri-camera-line"></i> Camera</a></li>
+                <li><a href="../statistic/statistic.html"><i
+                            class="ri-bar-chart-line"></i> Statistic</a></li>
+                <li><a href="../chat/chat.html"><i class="ri-message-line"></i>
+                        Chat</a></li>
+                <li><a href="../logout/logout.html"><i
+                            class="ri-logout-box-line"></i> Logout</a></li>
+            </ul>
         </div>
-    </section>
-    
-    <script src="js/home.js"></script>
-    
-</body>
+        <div class="container">
+            <header class="top-bar">
+                <div class="logo">
+                    <i class="ri-home-wifi-fill"></i>
+                    <h2>SmartGarden</h2>
+                </div>
+                <div class="user-info">
+                    <i class="ri-user-fill"></i>
+                    <span>Trần Phước Phú - admin</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <section class="home-section">
+                    <div class="home-container">
+                        <h1>Welcome to Smart Garden System</h1>
+                        <p>Trang web này được thiết kế để giúp bạn theo dõi và
+                            điều khiển các thiết bị trong hệ thống vườn thông
+                            minh một cách dễ dàng và tiện lợi.</p>
+                        <h2>Hướng Dẫn Sử Dụng</h2>
+                        <div class="guide">
+                            <h3>1. Giám sát các thông số</h3>
+                            <p>Truy cập các trang như
+                                <strong>Temperature</strong>,
+                                <strong>Air-humidity</strong>,
+                                <strong>Light</strong>,
+                                <strong>Soil-moisture</strong> để xem dữ liệu
+                                hiện tại và biểu đồ trực quan.</p>
+                            <h3>2. Điều khiển thiết bị</h3>
+                            <p>Sử dụng trang <strong>Control</strong> để bật/tắt
+                                quạt, bơm nước hoặc đóng/mở mái che. Hệ thống hỗ
+                                trợ chế độ tự động và thủ công.</p>
+                            <h3>3. Theo dõi camera</h3>
+                            <p>Truy cập trang <strong>Camera</strong> để quan
+                                sát video trực tiếp từ ESP32-CAM được gắn ở phía
+                                trước cửa của hệ thống.</p>
+                            <h3>4. Nhắn tin</h3>
+                            <p>Dùng trang <strong>Chat</strong> để giao tiếp với
+                                nhau.</p>
+                            <h3>5. Thống kê dữ liệu</h3>
+                            <p>Truy cập <strong>Statistic</strong> để xem các
+                                biểu đồ thống kê dữ liệu trong các khoảng thời
+                                gian khác nhau.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script src="home.js"></script>
+    </body>
 </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Air Humidity</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+            rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
+        <link rel="stylesheet" type="text/css"
+            href="/admin/css/air_humidity.css">
+        <script src="/admin/air_humidity.js"></script>
+    </head>
+    <body>
+        <header class="top-bar">
+            <div class="logo">
+                <i class="ri-home-wifi-fill"></i>
+                <h2>SmartGarden</h2>
+            </div>
+            <div class="user-info">
+                <i class="ri-user-fill"></i>
+                <span>Trần Phước Phú - admin</span>
+            </div>
+        </header>
+        <div class="container">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="../home/home.html"><i
+                                class="ri-home-4-line"></i> Home</a></li>
+                    <li><a href="../user/user.html"><i class="ri-user-line"></i>
+                            User</a></li>
+                    <li><a href="../temperature/temperature.html"><i
+                                class="ri-thermometer-line"></i>
+                            Temperature</a></li>
+                    <li><a href="../air-humidity/air-humidity.html"
+                            class="active"><i class="ri-leaf-line"></i> Air
+                            Humidity</a></li>
+                    <li><a href="../light/light.html"><i
+                                class="ri-sun-line"></i> Light</a></li>
+                    <li><a href="../soil-moisture/soil-moisture.html"><i
+                                class="ri-drop-line"></i> Soil Moisture</a></li>
+                    <li><a href="../control/control.html"><i
+                                class="ri-remote-control-line"></i>
+                            Control</a></li>
+                    <li><a href="../camera/camera.html"><i
+                                class="ri-camera-line"></i> Camera</a></li>
+                    <li><a href="../statistic/statistic.html"><i
+                                class="ri-bar-chart-line"></i>
+                            Statistic</a></li>
+                    <li><a href="../chat/chat.html"><i
+                                class="ri-message-line"></i> Chat</a></li>
+                    <li><a href="../logout/logout.html"><i
+                                class="ri-logout-box-line"></i> Logout</a></li>
+                </ul>
+            </aside>
+            <main class="main-content">
+                <section id="air-humidity" class="content-section">
+                    <h1>Air Humidity</h1>
+                    <p>Monitor the air humidity levels over time.</p>
+                    <div class="humidity-info">
+                        <div id="humidity-display" class="humidity-box">
+                            <div class="humidity-card">
+                                <div class="humidity-icon">
+                                    <i class="ri-leaf-line"></i>
+                                </div>
+                                <div class="humidity-info">
+                                    <h3>Current Humidity</h3>
+                                    <span
+                                        id="humidity-value">Loading...</span><span
+                                        id="humidity-unit">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="humidity-controls">
+                        <div class="humidity-time-selection-row">
+                            <label for="start-time-humidity">Start Time:</label>
+                            <input type="datetime-local"
+                                id="start-time-humidity"
+                                name="start-time-humidity">
+                            <label for="end-time-humidity">End Time:</label>
+                            <input type="datetime-local" id="end-time-humidity"
+                                name="end-time-humidity">
+                        </div>
+                        <div class="humidity-time-selection-button">
+                            <button id="filter-humidity-data-btn">Filter
+                                Data</button>
+                        </div>
+                    </div>
+                    <div class="humidity-chart-container">
+                        <h2>Air Humidity (%)</h2>
+                        <canvas id="humidity-chart-canvas"></canvas>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="air-humidity.js"></script>
+    </body>
+</html>

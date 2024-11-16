@@ -1,0 +1,219 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f7fc;
+}
+
+.top-bar {
+  width: 100%;
+  height: 60px;
+  background-color: #2e3a59;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.top-bar .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-bar .logo i {
+  font-size: 1.2rem;
+}
+
+.top-bar .logo h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.top-bar .user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 12px 20px;
+}
+
+.sidebar ul li a {
+  color: #ccc;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.sidebar ul li a i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.sidebar ul li a.active {
+  color: #007bff;
+  font-weight: bold;
+  padding-left: 25px;
+}
+
+.sidebar ul li a:hover {
+  color: #fff;
+  padding-left: 25px;
+}
+
+.container {
+  display: flex;
+  margin-top: 60px;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 220px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+}
+
+.light-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.light-box {
+  display: inline-block;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.light-icon {
+  font-size: 80px;
+  color: #ffb347;
+  margin-bottom: 20px;
+}
+
+.light-info h3 {
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.light-info span {
+  font-size: 3.8rem;
+  color: #ffb347;
+  font-weight: bold;
+}
+
+.light-controls {
+  margin: 30px auto;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.light-time-selection-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.light-time-selection-row label {
+  font-size: 1rem;
+  flex: 1;
+  color: #333;
+}
+
+.light-time-selection-row input {
+  flex: 2;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.light-time-selection-button {
+  display: flex;
+  justify-content: center;
+}
+
+.light-time-selection-button button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #0073aa;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.light-time-selection-button button:hover {
+  background-color: #0056b3;
+}
+
+.light-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.light-chart-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.light-chart-container canvas {
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
