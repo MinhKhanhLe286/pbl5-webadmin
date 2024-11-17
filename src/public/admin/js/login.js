@@ -21,7 +21,7 @@ $(document).ready(function() {
                 if (xhq.readyState === 4) {
                     if (xhq.status === 200) {
                         alert('Đăng nhập thành công!');
-                        window.location.href = '/admin';  // Chuyển hướng nếu đăng nhập thành công
+                        window.location.href = '/admin/home';  // Chuyển hướng nếu đăng nhập thành công
                     } else if (xhq.status === 500) {
                         alert('Đăng nhập thất bại');
                     } else if (xhq.status === 404) {

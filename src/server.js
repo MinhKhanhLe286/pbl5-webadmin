@@ -48,15 +48,5 @@ app.post('/data', (req, res) => {
 //   1
 // );
 
-// Tạo kết nối socket với client
-// app.get("/admin/chat", (req,res)=>{
-//   res.render("chat")
-// })
-// io.on("connection", (socket) => {
-//   console.log(`Có người kết nối ${socket.id}`);
-//   socket.on("disconnect", () => {
-//     console.log(`Có người đã hủy kết nối id: ${socket.id}`);
-//   });
-// });
 
 _io.on("connection", SocketServices.connection);

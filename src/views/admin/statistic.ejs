@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ESP32-CAM Live Stream</title>
-        <script src="/socket.io/socket.io.js"></script>
+        <title>Statistic</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
             rel="stylesheet">
@@ -12,8 +11,9 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
             rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
-        <link rel="stylesheet" type="text/css" href="/admin/css/camera.css">
-        <script src="/admin/camera.js"></script>
+        <link rel="stylesheet" type="text/css"
+            href="/admin/css/statistic.css">
+        <script src="/admin/js/statistic.js"></script>
     </head>
     <body>
         <header class="top-bar">
@@ -27,7 +27,7 @@
             </div>
         </header>
         <div class="container">
-            <nav class="sidebar">
+            <aside class="sidebar">
                 <ul>
                     <li><a href="/admin/home"><i
                                 class="ri-home-4-line"></i> Home</a></li>
@@ -56,31 +56,50 @@
                     <li><a href="/authentication/login"><i
                                 class="ri-logout-box-line"></i> Logout</a></li>
                 </ul>
-            </nav>
+            </aside>
             <main class="main-content">
-                <section id="camera" class="content-section">
-                    <h1>ESP32-CAM Live Stream</h1>
-                    <p>View live camera in front of smart garden door via ESP 32
-                        Cam.</p>
-                    <div class="camera-container">
-                        <div class="video-frame">
-                            <img id="esp32-cam-feed" src
-                                alt="Khung Video ESP32-CAM Stream" />
+                <section id="statistic" class="content-section">
+                    <h1>Statistic Overview</h1>
+                    <p>Data graph of temperature, air humidity, light intensity,
+                        and soil moisture.</p>
+                    <div class="statictis-time-selection">
+                        <div>
+                            <label for="start-time">Start Time:</label>
+                            <input type="datetime-local" id="start-time">
                         </div>
-                        <!-- <div class="camera-controls">
-                        <label for="esp32-ip">Enter ESP32-CAM IP Address:</label>
-                        <input type="text" id="esp32-ip" placeholder="e.g., http://192.168.1.100">
-                        <button id="load-video-btn">Load Stream</button>
-                    </div> -->
+                        <div>
+                            <label for="end-time">End Time:</label>
+                            <input type="datetime-local" id="end-time">
+                        </div>
+                        <div class="statistic-time-selection-button">
+                            <button id="filter-statistic-data-btn">Filter
+                                Data</button>
+                        </div>
+                    </div>
+                    <div class="statictis-chart-row">
+                        <div class="statictis-chart-container">
+                            <h2>Temperature (°C)</h2>
+                            <canvas id="temperature-chart"></canvas>
+                        </div>
+                        <div class="statictis-chart-container">
+                            <h2>Air Humidity (%)</h2>
+                            <canvas id="humidity-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="statictis-chart-row">
+                        <div class="statictis-chart-container">
+                            <h2>Light Intensity (Lux)</h2>
+                            <canvas id="light-chart"></canvas>
+                        </div>
+                        <div class="statictis-chart-container">
+                            <h2>Soil Moisture (%)</h2>
+                            <canvas id="moisture-chart"></canvas>
+                        </div>
                     </div>
                 </section>
             </main>
         </div>
-        <script>
-        const socket = io();
-        socket.on('Server_send_Base64_from_python', (data) => {
-            document.getElementById('esp32-cam-feed').src = 'data:image/jpeg;base64,' + data;
-        });
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
     </body>
 </html>
