@@ -1,6 +1,6 @@
 const sensorModel = require("../model/sensorModel");
 const sensorClass = require("../class/sensorClass")
-async function adddata(sersorClass) {
+async function saveData(sersorClass) {
   
   const newSensorData = new sensorModel({
       temperature: sersorClass.temperature,
@@ -16,11 +16,7 @@ async function adddata(sersorClass) {
       console.error("Error saving data:", error);
   }
 }
-function setIntervalSaveData(sensorClass, timeInterval){
-    setInterval(() => {
-        adddata(sensorClass);  
-    }, timeInterval * 1000 * 60);
-}
+
 module.exports = {
-    setIntervalSaveData
+    saveData
 };

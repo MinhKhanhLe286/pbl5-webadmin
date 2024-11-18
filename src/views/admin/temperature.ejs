@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Temperature</title>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
             rel="stylesheet">
@@ -11,8 +13,21 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
             rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
-        <link rel="stylesheet" type="text/css" href="/admin/css/temperature.css">
+        <link rel="stylesheet" type="text/css"
+            href="/admin/css/temperature.css">
         <script src="/admin/temperature.js"></script>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+            socket.on("Server-response-sensor-data", (data)=>{
+                let temperature = data.temperature;
+                $("#temp-value").text(`${temperature}`)
+            })
+            $(document).ready(()=>{
+                $("#temp-value").text(`....`)
+            })
+        </script>
     </head>
     <body>
         <header class="top-bar">
@@ -22,7 +37,7 @@
             </div>
             <div class="user-info">
                 <i class="ri-user-fill"></i>
-                <span>Trần Phước Phú - admin</span>
+                <span> Admin</span>
             </div>
         </header>
         <div class="container">
@@ -30,8 +45,7 @@
                 <ul>
                     <li><a href="/admin/home"><i
                                 class="ri-home-4-line"></i> Home</a></li>
-                    <li><a href="/admin/user"><i class="ri-user-line"></i>
-                            User</a></li>
+
                     <li><a href="/admin/temperature"><i
                                 class="ri-thermometer-line"></i>
                             Temperature</a></li>
@@ -97,7 +111,7 @@
                         <canvas id="temperature-chart-canvas"></canvas>
                     </div>
                 </section>
-                
+
             </main>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

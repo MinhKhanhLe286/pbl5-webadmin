@@ -1,0 +1,54 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+///
+const char* ssid = "Nha tro 26DC";
+const char* password = "0905070017";
+const char* serverUrl = "http://192.168.22.68:3333/esp32/senddata";
+//
+void setup() {
+  Serial.begin(115200);
+
+  // Kết nối WiFi
+  WiFi.begin(ssid, password);
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected.");
+  Serial.println("IP Address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin(serverUrl);
+    http.addHeader("Content-Type", "application/json"); 
+    String jsonData = "{\"request\": \"getData\"}"; 
+    // Gửi request
+    int httpResponseCode = http.POST(jsonData);
+    // Xử lý phản hồi từ server
+    if (httpResponseCode > 0) {
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+
+      String response = http.getString();
+      Serial.println("Response from server:");
+      Serial.println(response);
+
+      // Có thể parse JSON ở đây nếu cần
+    } else {
+      Serial.print("Error in sending POST: ");
+      Serial.println(httpResponseCode);
+    }
+
+    // Kết thúc HTTP
+    http.end();
+  } else {
+    Serial.println("WiFi disconnected.");
+  }
+
+  delay(2500); // Gửi mỗi 5 giây
+}

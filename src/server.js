@@ -1,52 +1,47 @@
-const express = require('express');
-const http = require('http');
+const express = require("express");
+const http = require("http");
 const app = express();
 var server = http.Server(app);
-var io = require('socket.io')(server);
-var routerAdmin = require('./router/admin');
+var io = require("socket.io")(server);
+var routerAdmin = require("./router/admin");
 const connection = require("./config/conMongoose");
-const {setIntervalSaveData} = require("./handle/adddata");
-// var sensorClass = require("./class/sensorClass");
-const bodyParser = require('body-parser');
-const SocketServices = require("./services/chat.service")
-require('dotenv').config();
+const { saveData } = require("./handle/adddata");
+var sensorClass = require("./class/sensorClass");
+const bodyParser = require("body-parser");
+const SocketServices = require("./services/chat.service");
+const routerESP32 = require("./router/esp32");
+require("dotenv").config();
 
-global._io = io;
 app.use(bodyParser.json());
+var sensor = new sensorClass(0, 0, 0, 0);
+
+////// variable globle ///////
+global._data = null;
+global._io = io;
+////// variable globle ///////
+
+setInterval(() => {
+  if (_data != null) {
+    sensor.setData(_data.temperature, _data.soil, _data.humidity, _data.light);
+    saveData(sensor);
+    sensor.reset();
+  }
+  else{
+    console.log("data null")
+  }
+}, 1000 * 60);
 
 connection();
 
-
-
-app.use(express.static('./src/public'));
-app.set('view engine', 'ejs');
-app.set('views', "./src/views");
+app.use(express.static("./src/public"));
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
 
 server.listen(3333, () => {
-  console.log('Server is running at http://localhost:3333');
+  console.log("Server is running at http://localhost:3333");
 });
 
 routerAdmin(app);
-
-// Route để nhận dữ liệu từ ESP32
-app.post('/data', (req, res) => {
-  const data = req.body; 
-  console.log('Received data from ESP32:', data);
-
-  // Gửi dữ liệu cho tất cả các client WebSocket
-  _io.sockets.emit("Server-response-sensor-data", data);
-  res.status(200).send("Data received");
-});
-
-// setIntervalSaveData(
-//   new sensorClass(
-//       parseFloat((Math.random() * 100).toFixed(2)),
-//       parseFloat((Math.random() * 100).toFixed(2)),
-//       parseFloat((Math.random() * 100).toFixed(2)),
-//       parseFloat((Math.random() * 100).toFixed(2))
-//   ),
-//   1
-// );
-
+routerESP32(app);
 
 _io.on("connection", SocketServices.connection);
