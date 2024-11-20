@@ -12,25 +12,39 @@ function getData(req, res) {
 //
 // [POST] ESP32/senddata
 function sendData(req, res) {
-  let fanSpeed = 0;
-  if (_data.temperature < 28) {
-    fanSpeed = 0;
-  } else if (_data.temperature >= 28 && _data.temperature <= 32) {
-    fanSpeed = 155;
-  } else {
-    fanSpeed = 255;
-  }
+  console.log("esp32 want to get data")
+  if (_data != null) {
+    let fanSpeed = 0;
+    if (_data.temperature < 28) {
+      fanSpeed = 0;
+    } else if (_data.temperature >= 28 && _data.temperature <= 32) {
+      fanSpeed = 155;
+    } else {
+      fanSpeed = 255;
+    }
 
-  let pump = _data.soil < 30 ? 1 : 0;
-  let bright_light = _data.light < 40 ? 1 : 0;
-  let opendoor = 1;
-  // Trả về một đối tượng JSON
-  res.status(200).json({
-    fanSpeed: fanSpeed,
-    pump: pump,
-    bright_light: bright_light,
-    open_door: opendoor,
-  });
+    let pump = _data.soil < 30 ? 1 : 0;
+    let bright_light = _data.light < 40 ? 1 : 0;
+    let opendoor = 1;
+    // Trả về một đối tượng JSON
+    res.status(200).json({
+      fanSpeed: fanSpeed,
+      pump: pump,
+      bright_light: bright_light,
+      open_door: opendoor,
+    });
+  } else {
+    let fanSpeed = 0;
+    let pump = 0;
+    let bright_light = 0;
+    let opendoor = 1;
+    res.status(200).json({
+      fanSpeed: fanSpeed,
+      pump: pump,
+      bright_light: bright_light,
+      open_door: opendoor,
+    });
+  }
 }
 module.exports = {
   getData,

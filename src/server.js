@@ -29,7 +29,7 @@ setInterval(() => {
   else{
     console.log("data null")
   }
-}, 1000 * 60);
+}, 1000  * 60);
 
 connection();
 
@@ -45,3 +45,6 @@ routerAdmin(app);
 routerESP32(app);
 
 _io.on("connection", SocketServices.connection);
+
+// const sendMail = require("./services/mailer.service")
+// sendMail("khanhlm250204@gmail.com","Cẩn báo", "<h1>hệ thống cảnh báo</h1>")
