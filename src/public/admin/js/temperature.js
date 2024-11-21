@@ -5,164 +5,111 @@ socket.on("Server-response-sensor-data", (data) => {
 });
 
 $(document).ready(() => {
+  // Đặt giá trị mặc định cho temperature
   $("#temp-value").text(`....`);
-  //////////////
-  var data =  [
-    {
-      "temperature": "27.6",
-      "humidity": 79,
-      "soil": 3,
-      "light": 87,
-      "time": "20:49 AM"
-    },
-    {
-      "temperature": "26.4",
-      "humidity": 82,
-      "soil": 1,
-      "light": 65,
-      "time": "20:54 AM"
-    },
-    {
-      "temperature": "24.8",
-      "humidity": 90,
-      "soil": 0,
-      "light": 42,
-      "time": "20:59 AM"
-    }
-  ]
-  data = data.json();
-  // const temperatureData = [22, 24, 26, 28, 27, 29, 30, 32, 31, 30, 28, 27];
-  // const timeLabels = [
-  //   "12 AM",
-  //   "2 AM",
-  //   "4 AM",
-  //   "6 AM",
-  //   "8 AM",
-  //   "10 AM",
-  //   "11.5 PM",
-  //   "2 PM",
-  //   "4 PM",
-  //   "6 PM",
-  //   "8 PM",
-  //   "10 PM",
-  // ];
-  const ctx = document
-    .getElementById("temperature-chart-canvas")
-    .getContext("2d");
-  const chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: timeLabels,
-      datasets: [
-        {
-          label: "Temperature (°C)",
-          data: temperatureData,
-          borderColor: "#ff6f61",
-          backgroundColor: "rgba(255, 111, 97, 0.2)",
-          fill: true,
-          tension: 0.4,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: "top" },
-        tooltip: {
-          callbacks: {
-            label: (tooltipItem) => `${tooltipItem.raw}°C`,
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: false,
-          title: { display: true, text: "Temperature (°C)" },
-        },
-      },
-    },
-  });
+  setDefaultDateTime();
 
-  const filterButton = document.getElementById("filter-temperature-data-btn");
-  filterButton.addEventListener("click", () => {
-    const startTime = document.getElementById("start-time-temperature").value;
-    const endTime = document.getElementById("end-time-temperature").value;
+  // Gọi API ban đầu
+  const data = {
+    startTime: $("#start-time-temperature").val(),
+    endTime: $("#end-time-temperature").val()
+  };
+  fetch_Data(data);
 
-    if (!startTime || !endTime) {
-      alert("Please select both start and end times.");
-      return;
-    }
-
-    console.log(`Filtering temperature data from ${startTime} to ${endTime}`);
-    chart.update();
+  // Handle filter button click
+  $("#filter-temperature-data-btn").click(() => {
+    const data = {
+      startTime: $("#start-time-temperature").val(),
+      endTime: $("#end-time-temperature").val()
+    };
+    fetch_Data(data);
   });
 });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const temperatureData = [22, 24, 26, 28, 27, 29, 30, 32, 31, 30, 28, 27];
-//   const timeLabels = [
-//     "12 AM",
-//     "2 AM",
-//     "4 AM",
-//     "6 AM",
-//     "8 AM",
-//     "10 AM",
-//     "12 PM",
-//     "2 PM",
-//     "4 PM",
-//     "6 PM",
-//     "8 PM",
-//     "10 PM",
-//   ];
-//   const ctx = document
-//     .getElementById("temperature-chart-canvas")
-//     .getContext("2d");
-//   const chart = new Chart(ctx, {
-//     type: "line",
-//     data: {
-//       labels: timeLabels,
-//       datasets: [
-//         {
-//           label: "Temperature (°C)",
-//           data: temperatureData,
-//           borderColor: "#ff6f61",
-//           backgroundColor: "rgba(255, 111, 97, 0.2)",
-//           fill: true,
-//           tension: 0.4,
-//         },
-//       ],
-//     },
-//     options: {
-//       responsive: true,
-//       plugins: {
-//         legend: { position: "top" },
-//         tooltip: {
-//           callbacks: {
-//             label: (tooltipItem) => `${tooltipItem.raw}°C`,
-//           },
-//         },
-//       },
-//       scales: {
-//         y: {
-//           beginAtZero: false,
-//           title: { display: true, text: "Temperature (°C)" },
-//         },
-//       },
-//     },
-//   });
+function fetch_Data(data) {
+  fetch("/admin/API", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Kiểm tra dữ liệu từ server
+      if (data && Array.isArray(data)) {
+        const temperatureData = data.map((entry) => parseFloat(entry.temperature));
+        const timeLabels = data.map((entry) => entry.time);
+        drawChart(temperatureData, timeLabels);
+      } else {
+        console.error("Dữ liệu trả về không hợp lệ");
+      }
+    })
+    .catch(error => {
+      console.error("Lỗi khi gọi API:", error);
+    });
+}
+function drawChart(temperatureData, timeLabels) {
+  const ctx = document.getElementById("temperature-chart-canvas").getContext("2d");
+  if (window.chart) {
+    // Cập nhật dữ liệu cho biểu đồ nếu biểu đồ đã tồn tại
+    window.chart.data.labels = timeLabels;
+    window.chart.data.datasets[0].data = temperatureData;
+    window.chart.update(); // Cập nhật biểu đồ
+  } else {
+    // Tạo mới biểu đồ nếu chưa có
+    window.chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: timeLabels,
+        datasets: [
+          {
+            label: "Temperature (°C)",
+            data: temperatureData,
+            borderColor: "#ff6f61",
+            backgroundColor: "rgba(255, 111, 97, 0.2)",
+            fill: true,
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: "top" },
+          tooltip: {
+            callbacks: {
+              label: (tooltipItem) => `${tooltipItem.raw}°C`,
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: false,
+            title: { display: true, text: "Temperature (°C)" },
+          },
+        },
+      },
+    });
+  }
+}
 
-//   const filterButton = document.getElementById("filter-temperature-data-btn");
-//   filterButton.addEventListener("click", () => {
-//     const startTime = document.getElementById("start-time-temperature").value;
-//     const endTime = document.getElementById("end-time-temperature").value;
 
-//     if (!startTime || !endTime) {
-//       alert("Please select both start and end times.");
-//       return;
-//     }
+const setDefaultDateTime = () => {
+  const now = new Date();
+  const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
 
-//     console.log(`Filtering temperature data from ${startTime} to ${endTime}`);
-//     chart.update();
-//   });
-// });
-// alert(hello);
+  // Định dạng datetime-local (yyyy-MM-ddTHH:mm)
+  const formatDateTime = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  // Gán giá trị mặc định cho các input
+  $("#start-time-temperature").val(formatDateTime(thirtyMinutesAgo));
+  $("#end-time-temperature").val(formatDateTime(now));
+};

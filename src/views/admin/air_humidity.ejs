@@ -15,18 +15,9 @@
         <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
         <link rel="stylesheet" type="text/css"
             href="/admin/css/air_humidity.css">
-        <script src="/admin/air_humidity.js"></script>
         <script src="/socket.io/socket.io.js"></script>
-        <script>
-            var socket = io();
-            socket.on("Server-response-sensor-data", (data)=>{
-                let air_humidity = data.humidity;
-                $("#humidity-value").text(`${air_humidity}`)
-            })
-            $(document).ready(()=>{
-                $("#humidity-value").text(`....`)
-            })
-        </script>
+        <script src="/admin/js/air_humidity.js"></script>
+        
     </head>
     <body>
         <header class="top-bar">

@@ -15,18 +15,11 @@
         <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
         <link rel="stylesheet" type="text/css"
             href="/admin/css/soil_moisture.css">
-        <script src="/admin/soil_moisture.js"></script>
-
-        <script src="/socket.io/socket.io.js"></script>
+            
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="/admin/js/soil_moisture.js"></script>
         <script>
-            var socket = io();
-            socket.on("Server-response-sensor-data", (data)=>{
-                let soil = data.soil;
-                $("#moisture-value").text(`${soil}`)
-            })
-            $(document).ready(()=>{
-                $("#moisture-value").text(`....`)
-            })
+            
         </script>
 
     </head>

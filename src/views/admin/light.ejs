@@ -15,17 +15,10 @@
         <link rel="stylesheet" type="text/css" href="/admin/lib/RESET.css">
         <link rel="stylesheet" type="text/css"
             href="/admin/css/light.css">
-        <script src="/admin/light.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="/admin/js/light.js"></script>
         <script>
-            var socket = io();
-            socket.on("Server-response-sensor-data", (data)=>{
-                let light = data.light;
-                $("#light-value").text(`${light}  `)
-            })
-            $(document).ready(()=>{
-                $("#light-value").text(`....`)
-            })
+            
         </script>
     </head>
     <body>

@@ -1,7 +1,7 @@
 const Model = require("../../model/sensorModel");
 const convertTime = require("../../helper/convertTime");
 
-// [POST] admin/temperature
+// [POST] admin/API
 async function apiTemperature(req, res) {
   try {
     console.log("Request Body:", req.body);
