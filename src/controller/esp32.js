@@ -1,51 +1,69 @@
+const sendMail = require("./../services/mailer.service");
+const Modeluser = require("../model/userModel");
+
+let lastEmailSentTime = null;
+
 // [POST] ESP32/getdata
-function getData(req, res) {
+async function getData(req, res) {
   const data = req.body;
+
+  if (
+    !data ||
+    typeof data.soil === "undefined" ||
+    typeof data.light === "undefined" ||
+    typeof data.temperature === "undefined"
+  ) {
+    return res.status(400).send("Invalid data");
+  }
+  if (data.soil >= 90 || data.light >= 90 || data.temperature >= 35) {
+    const now = new Date();
+    if (!lastEmailSentTime || now - lastEmailSentTime >= 5 * 60 * 1000) {
+      const emails = await Modeluser.find({}, { email: 1, _id: 0 });
+      const emailList = emails.map((user) => user.email).join(", ");
+      if (emailList) {
+        await sendMail(
+          emailList,
+          "Cảnh báo quan trong",
+          "<h2>Hệ thống quá ngưỡng cho phép</h2>"
+        );
+        lastEmailSentTime = now;
+      }
+    }
+  }
   console.log("Received data from ESP32:", data);
   _data = data;
-  // Gửi dữ liệu cho tất cả các client WebSocket
   _io.sockets.emit("Server-response-sensor-data", data);
   res.status(200).send("Data received");
 }
+
 //
-// _data = {light: 93, temperature: 27.6, humidity: 85, soil: 0}
-//
+// _data = {light: 93, temperature: 27.6, humidity: 85, soil: 0, openDoor: 0}
+// 
+const fan = (data)=>{
+  if (data < 28) return 0;
+  if (data > 25 && data < 30) return 155;
+  return 255;
+}
+
+
 // [POST] ESP32/senddata
 function sendData(req, res) {
-  console.log("esp32 want to get data")
-  if (_data != null) {
-    let fanSpeed = 0;
-    if (_data.temperature < 28) {
-      fanSpeed = 0;
-    } else if (_data.temperature >= 28 && _data.temperature <= 32) {
-      fanSpeed = 155;
-    } else {
-      fanSpeed = 255;
-    }
-
-    let pump = _data.soil < 30 ? 1 : 0;
-    let bright_light = _data.light < 40 ? 1 : 0;
-    let opendoor = 1;
-    // Trả về một đối tượng JSON
-    res.status(200).json({
-      fanSpeed: fanSpeed,
-      pump: pump,
-      bright_light: bright_light,
-      open_door: opendoor,
-    });
-  } else {
-    let fanSpeed = 0;
-    let pump = 0;
-    let bright_light = 0;
-    let opendoor = 1;
-    res.status(200).json({
-      fanSpeed: fanSpeed,
-      pump: pump,
-      bright_light: bright_light,
-      open_door: opendoor,
-    });
+  console.log("esp32 want to get data");
+  if (!_data) {
+    return res.status(500).json({ message: "No data available" });
   }
+
+  const response = {
+    openRoof: _data.light > 85 ? 1 : 0,
+    brightLight: _data.light < 30 ? 1 : 0,
+    fanSpeed: fan(_data.temperature),
+    pump: _data.soil < 30 ? 1 : 0,
+    door: _data.openDoor === 0 ? 0 : 1,
+  };
+
+  res.status(200).json(response);
 }
+
 module.exports = {
   getData,
   sendData,

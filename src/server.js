@@ -24,7 +24,7 @@ setInterval(() => {
   if (_data != null) {
     sensor.setData(_data.temperature, _data.soil, _data.humidity, _data.light);
     saveData(sensor);
-    sensor.reset();
+    _data = null;
   }
   else{
     console.log("data null")

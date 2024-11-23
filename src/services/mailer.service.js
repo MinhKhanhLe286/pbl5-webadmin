@@ -10,13 +10,14 @@ const transporter = nodemailer.createTransport({
   port: 465,
 });
 
-async function sendMail(to, sub, msg){
+async function sendMail(to, sub, msg, text="!!!!!!!!!!!!!!!!"){
     try {
         await transporter.sendMail({
             from: '"Hệ thống vườn thông minh! 👻" <lminhkhanh231@gmail.com>',
             to: to,
             subject: sub,
-            html: msg
+            html: msg,
+            text: text
         });
         console.log("Send mail sucsecfully!")
     } catch (error) {
