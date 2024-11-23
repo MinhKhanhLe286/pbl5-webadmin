@@ -38,7 +38,7 @@ app.set("view engine", "ejs");
 app.set("views", "./src/views");
 
 server.listen(3333, () => {
-  console.log("Server is running at http://localhost:3333");
+  console.log("Server is running at http://localhost:3333/admin/home");
 });
 
 routerAdmin(app);

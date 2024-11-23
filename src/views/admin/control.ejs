@@ -36,14 +36,14 @@
                                 class="ri-thermometer-line"></i>
                             Temperature</a></li>
                     <li><a href="/admin/airHumidity"
-                            class="active"><i class="ri-leaf-line"></i> Air
+                            ><i class="ri-leaf-line"></i> Air
                             Humidity</a></li>
                     <li><a href="/admin/light"><i
                                 class="ri-sun-line"></i> Light</a></li>
                     <li><a href="/admin/soilMoisture"><i
                                 class="ri-drop-line"></i> Soil Moisture</a></li>
-                    <li><a href="/admin/control"><i
-                                class="ri-remote-control-line"></i>
+                    <li><a href="/admin/control"class="active"><i
+                        class="ri-remote-control-line"></i>
                             Control</a></li>
                     <li><a href="/admin/camera"><i
                                 class="ri-camera-line"></i> Camera</a></li>
@@ -61,27 +61,96 @@
                     <div class="control-container">
                         <div id="mode-container">
                             <h1>Control Panel</h1>
-                            <p id="current-mode">Current Mode: <strong>Auto
-                                    Mode</strong></p>
-                            <button id="toggle-mode-btn">Switch to Manual
-                                Mode</button>
+                            <p id="current-mode">Current Mode: <strong>Auto Mode</strong></p>
+                            <button id="toggle-mode-btn"><i class="ri-toggle-line"></i> Switch to Manual Mode</button>
                         </div>
                         <div id="manual-controls" style="display: none;">
-                            <button id="toggle-auto-btn">Switch to Auto
-                                Mode</button>
+                            <button id="toggle-auto-btn"><i class="ri-toggle-line"></i> Switch to Auto Mode</button>
                             <div class="control-buttons">
-                                <button id="fan-control-btn">Turn Off
-                                    Fan</button>
-                                <button id="pump-control-btn">Turn Off
-                                    Pump</button>
-                                <button id="roof-control-btn">Close
-                                    Roof</button>
+                                <button id="fan-control-btn"><i class="ri-cloud-windy-line"></i> Turn Off Fan</button>
+                                <button id="pump-control-btn"><i class="ri-contrast-drop-fill"></i> Turn Off Pump</button>
+                                <button id="roof-control-btn"><i class="ri-building-2-line"></i> Close Roof</button>
+                            </div>
+                        </div>
+                        <!-- Display sensors' data -->
+                        <div id="sensor-data">
+                            <div class="sensor-info">
+                                <h3><i class="ri-sun-line"></i> Light Intensity</h3>
+                                <p id="light-intensity">Loading...</p>
+                            </div>
+                            <div class="sensor-info">
+                                <h3><i class="ri-leaf-line"></i> Air Humidity</h3>
+                                <p id="air-humidity">Loading...</p>
+                            </div>
+                            <div class="sensor-info">
+                                <h3><i class="ri-drop-line"></i> Soil Moisture</h3>
+                                <p id="soil-moisture">Loading...</p>
+                            </div>
+                            <div class="sensor-info">
+                                <h3><i class="ri-thermometer-line"></i> Temperature</h3>
+                                <p id="temperature">Loading...</p>
                             </div>
                         </div>
                     </div>
                 </section>
             </main>
         </div>
-        <script src="control.js"></script>
+        <script >
+            document.addEventListener('DOMContentLoaded', () => {
+    const toggleModeBtn = document.getElementById('toggle-mode-btn');
+    const toggleAutoBtn = document.getElementById('toggle-auto-btn');
+    const currentMode = document.getElementById('current-mode');
+    const manualControls = document.getElementById('manual-controls');
+
+    const fanControlBtn = document.getElementById('fan-control-btn');
+    const pumpControlBtn = document.getElementById('pump-control-btn');
+    const roofControlBtn = document.getElementById('roof-control-btn');
+
+    // Switch to Manual Mode
+    toggleModeBtn.addEventListener('click', () => {
+        currentMode.innerHTML = 'Current Mode: <strong>Manual Mode</strong>';
+        manualControls.style.display = 'block';
+        toggleModeBtn.style.display = 'none';
+    });
+
+    // Switch to Auto Mode
+    toggleAutoBtn.addEventListener('click', () => {
+        currentMode.innerHTML = 'Current Mode: <strong>Auto Mode</strong>';
+        manualControls.style.display = 'none';
+        toggleModeBtn.style.display = 'inline-block';
+    });
+
+    // Fan control button
+    fanControlBtn.addEventListener('click', () => {
+        const icon = fanControlBtn.querySelector('i'); // Find the icon
+        if (fanControlBtn.textContent.trim() === 'Turn Off Fan') {
+            fanControlBtn.innerHTML = '<i class="ri-cloud-windy-line"></i> Turn On Fan'; // Keep the icon and change text
+        } else {
+            fanControlBtn.innerHTML = '<i class="ri-cloud-windy-line"></i> Turn Off Fan'; // Keep the icon and change text
+        }
+    });
+
+    // Pump control button
+    pumpControlBtn.addEventListener('click', () => {
+        const icon = pumpControlBtn.querySelector('i'); // Find the icon
+        if (pumpControlBtn.textContent.trim() === 'Turn Off Pump') {
+            pumpControlBtn.innerHTML = '<i class="ri-contrast-drop-fill"></i> Turn On Pump'; // Keep the icon and change text
+        } else {
+            pumpControlBtn.innerHTML = '<i class="ri-contrast-drop-fill"></i> Turn Off Pump'; // Keep the icon and change text
+        }
+    });
+
+    // Roof control button
+    roofControlBtn.addEventListener('click', () => {
+        const icon = roofControlBtn.querySelector('i'); // Find the icon
+        if (roofControlBtn.textContent.trim() === 'Close Roof') {
+            roofControlBtn.innerHTML = '<i class="ri-building-2-line"></i> Open Roof'; // Keep the icon and change text
+        } else {
+            roofControlBtn.innerHTML = '<i class="ri-building-2-line"></i> Close Roof'; // Keep the icon and change text
+        }
+    });
+});
+
+        </script>
     </body>
 </html>

@@ -1,3 +1,4 @@
+/* General reset and layout */
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +6,9 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #f4f7fc;
+  color: #2c3e50;
 }
 
 .top-bar {
@@ -18,6 +20,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .top-bar .logo {
@@ -27,11 +30,11 @@ body {
 }
 
 .top-bar .logo i {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .top-bar .logo h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
 }
 
@@ -39,7 +42,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .container {
@@ -74,14 +77,14 @@ body {
   text-decoration: none;
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: color 0.3s ease, padding-left 0.3s ease;
 }
 
 .sidebar ul li a i {
   margin-right: 10px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .sidebar ul li a.active {
@@ -95,54 +98,150 @@ body {
   padding-left: 25px;
 }
 
+/* Main content area */
 .main-content {
+  padding: 40px;
   flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  background-color: #f8f9fa;
+  background-color: #ecf0f1;
 }
 
-.control-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
+.content-section {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+/* Control panel header */
+#mode-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #mode-container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
+  font-size: 2.2rem;
+  color: #2c3e50;
 }
 
 #current-mode {
   font-size: 1.2rem;
-  margin-bottom: 20px;
+  color: #7f8c8d;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px 0;
-  font-size: 1rem;
+#toggle-mode-btn, #toggle-auto-btn {
+  background-color: #1abc9c;
+  color: white;
   border: none;
-  border-radius: 4px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin: 20px 0;
   cursor: pointer;
-  background-color: #0073aa;
-  color: #fff;
-  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
+#toggle-mode-btn:hover, #toggle-auto-btn:hover {
+  background-color: #16a085;
+  transform: scale(1.05);
+}
+
+#toggle-mode-btn i, #toggle-auto-btn i {
+  font-size: 1.5rem;
+}
+#fan-control-btn,#pump-control-btn,#roof-control-btn {
+  margin: 10px 0;
+}
+
+/* Manual control buttons styling */
+#manual-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .control-buttons button {
-  margin: 10px 5px;
-  background-color: #555;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .control-buttons button:hover {
-  background-color: #333;
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.control-buttons button i {
+  font-size: 1.5rem;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+  
+  .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+  }
+  
+  .main-content {
+      margin-left: 0;
+  }
+}
+
+/* Styling for sensor data */
+#sensor-data {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.sensor-info {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sensor-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.sensor-info h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.sensor-info p {
+  font-size: 1.6rem;
+  color: #16a085;
+  font-weight: bold;
+}
+
+/* Additional styling for icons */
+#sensor-data .sensor-info i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #1abc9c;
 }
