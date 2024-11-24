@@ -1,41 +1,37 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleModeBtn = document.getElementById("toggle-mode-btn");
-  const toggleAutoBtn = document.getElementById("toggle-auto-btn");
-  const currentMode = document.getElementById("current-mode");
-  const manualControls = document.getElementById("manual-controls");
+<script src="/socket.io/socket.io.js"></script>
+socket = io();
+const manual = null;
+socket.on(Server-response-sensor-data,(data)=>{
+  $("#light-intensity").val(data.light);
+  $("#air-humidity").val(data.humidity);
+  $("#temperature").val(data.temperature);
+  $("soil-moisture").val(data.soil);
 
-  const fanControlBtn = document.getElementById("fan-control-btn");
-  const pumpControlBtn = document.getElementById("pump-control-btn");
-  const roofControlBtn = document.getElementById("roof-control-btn");
+})
 
-  toggleModeBtn.addEventListener("click", () => {
-    currentMode.innerHTML = "Current Mode: <strong>Manual Mode</strong>";
-    manualControls.style.display = "block";
-    toggleModeBtn.style.display = "none";
-  });
+$(document).ready(() => {
+  $("#toggle-mode-btn").click(()=>{
+    manual.openRoof = 0;
+    manual.fanSpeed = 0;
+    manual.pump = 0;
+    socket.emit("Switch-to-manual", manual)
 
-  toggleAutoBtn.addEventListener("click", () => {
-    currentMode.innerHTML = "Current Mode: <strong>Auto Mode</strong>";
-    manualControls.style.display = "none";
-    toggleModeBtn.style.display = "inline-block";
-  });
+    $('#fan-control-btn').click(()=>{
+      manual.fanSpeed = (manual.fanSpeed == 0) ? 1: 0;
+      socket.emit("Switch-to-manual", manual)
+    });
+    $('#pump-control-btn').click(()=>{
+      manual.pump = (manual.pump == 0) ? 1: 0;
+      socket.emit("Switch-to-manual", manual)
+    });
+    $('#roof-control-btn"').click(()=>{
+      manual.openRoof = (manual.openRoof == 0) ? 255 : 0;
+      socket.emit("Switch-to-manual", manual)
+    });
 
-  fanControlBtn.addEventListener("click", () => {
-    fanControlBtn.textContent =
-      fanControlBtn.textContent === "Turn Off Fan"
-        ? "Turn On Fan"
-        : "Turn Off Fan";
-  });
-
-  pumpControlBtn.addEventListener("click", () => {
-    pumpControlBtn.textContent =
-      pumpControlBtn.textContent === "Turn Off Pump"
-        ? "Turn On Pump"
-        : "Turn Off Pump";
-  });
-
-  roofControlBtn.addEventListener("click", () => {
-    roofControlBtn.textContent =
-      roofControlBtn.textContent === "Close Roof" ? "Open Roof" : "Close Roof";
-  });
+  })
+  $("#toggle-auto-btn").click(()=>{
+    socket.emit("Switch-to-auto", null)
+  })
 });
+

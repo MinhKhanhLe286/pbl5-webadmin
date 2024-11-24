@@ -41,7 +41,7 @@ async function getData(req, res) {
 // 
 const fan = (data)=>{
   if (data < 28) return 0;
-  if (data > 25 && data < 30) return 155;
+  if (data >= 28 && data < 30) return 155;
   return 255;
 }
 
@@ -55,12 +55,14 @@ function sendData(req, res) {
 
   const response = {
     openRoof: _data.light > 85 ? 1 : 0,
-    brightLight: _data.light < 30 ? 1 : 0,
     fanSpeed: fan(_data.temperature),
     pump: _data.soil < 30 ? 1 : 0,
-    door: _data.openDoor === 0 ? 0 : 1,
   };
-
+  if(! _manual){
+    response.openRoof = _manual.openRoof,
+    response.fanSpeed = _manual.fanSpeed,
+    response.pump = _manual.pump
+  }
   res.status(200).json(response);
 }
 

@@ -2,7 +2,6 @@ class SocketServices {
     connection(socket) {
         console.log(`Co user connection: ${socket.id}`);
 
-        // Sửa "disconnec" thành "disconnect"
         socket.on("disconnect", () => {
             console.log(`${socket.id} huy connection`);
         });
@@ -13,6 +12,12 @@ class SocketServices {
         socket.on('Python_send_server', (data)=>{
             _io.sockets.emit("Server_send_Base64_from_python", data)
         } )
+        socket.on('Switch-to-manual', (data)=>{
+            _manual = data;
+        })
+        socket.on('Switch-to-auto', (data)=>{
+            _manual = null;
+        })
     }
 }   
 

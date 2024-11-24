@@ -11,13 +11,14 @@ const bodyParser = require("body-parser");
 const SocketServices = require("./services/chat.service");
 const routerESP32 = require("./router/esp32");
 require("dotenv").config();
-
+const PORT = process.env.PORT || 3333;
 app.use(bodyParser.json());
 var sensor = new sensorClass(0, 0, 0, 0);
 
 ////// variable globle ///////
 global._data = null;
 global._io = io;
+global._manual = null;
 ////// variable globle ///////
 
 setInterval(() => {
@@ -37,8 +38,8 @@ app.use(express.static("./src/public"));
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 
-server.listen(3333, () => {
-  console.log("Server is running at http://localhost:3333/admin/home");
+server.listen(PORT, 'localhost', () => {
+  console.log(`Server is running on http://localhost:${PORT}/admin/home`);
 });
 
 routerAdmin(app);
