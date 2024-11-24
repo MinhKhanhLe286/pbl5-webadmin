@@ -1,10 +1,15 @@
 var socket = io();
-const manual = null;
-socket.on(Server - response - sensor - data, (data) => {
+let manual = {
+  openRoof: 0,
+  fanSpeed: 0,
+  pump: 0
+};
+
+socket.on("Server-response-sensor-data", (data) => {
   $("#light-intensity").val(data.light);
   $("#air-humidity").val(data.humidity);
   $("#temperature").val(data.temperature);
-  $("soil-moisture").val(data.soil);
+  $("#soil-moisture").val(data.soil);
 });
 
 $(document).ready(() => {
@@ -22,7 +27,7 @@ $(document).ready(() => {
       manual.pump = manual.pump == 0 ? 1 : 0;
       socket.emit("Switch-to-manual", manual);
     });
-    $('#roof-control-btn"').click(() => {
+    $("#roof-control-btn").click(() => {
       manual.openRoof = manual.openRoof == 0 ? 255 : 0;
       socket.emit("Switch-to-manual", manual);
     });
