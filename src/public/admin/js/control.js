@@ -6,13 +6,24 @@ let manual = {
 };
 
 socket.on("Server-response-sensor-data", (data) => {
-  $("#light-intensity").val(data.light);
-  $("#air-humidity").val(data.humidity);
-  $("#temperature").val(data.temperature);
-  $("#soil-moisture").val(data.soil);
+  let light = data.light || 200;
+  let humidity = data.humidity || 200;
+  let temperature = data.temperature || 200;
+  let soil = data.soil || 200;
+  $("#light-intensity").text(`${light}`);
+  $("#air-humidity").text(`${humidity}`);
+  $("#temperature").text(`${temperature}`);
+  $("#soil-moisture").text(`${soil}`);
 });
 
 $(document).ready(() => {
+
+
+  $("#light-intensity").text(`Loading...1`);
+  $("#air-humidity").text(`Loading...2`);
+  $("#temperature").text(`Loading...3`);
+  $("#soil-moisture").text(`Loading...4`);
+
   $("#toggle-mode-btn").click(() => {
     manual.openRoof = 0;
     manual.fanSpeed = 0;
