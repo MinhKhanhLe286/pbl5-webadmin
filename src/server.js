@@ -38,7 +38,7 @@ app.use(express.static("./src/public"));
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 
-server.listen(PORT, 'localhost', () => {
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}/admin/home`);
 });
 

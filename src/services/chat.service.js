@@ -16,7 +16,7 @@ class SocketServices {
             _manual = data;
         })
         socket.on('Switch-to-auto', (data)=>{
-            _manual = null;
+            _manual = data;
         })
     }
 }   

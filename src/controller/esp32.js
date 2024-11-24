@@ -37,7 +37,7 @@ async function getData(req, res) {
 }
 
 //
-// _data = {light: 93, temperature: 27.6, humidity: 85, soil: 0, openDoor: 0}
+// _data = {light: 93, temperature: 27.6, humidity: 85, soil: 0}
 // 
 const fan = (data)=>{
   if (data < 28) return 0;
@@ -58,7 +58,7 @@ function sendData(req, res) {
     fanSpeed: fan(_data.temperature),
     pump: _data.soil < 30 ? 1 : 0,
   };
-  if(! _manual){
+  if( _manual != null){
     response.openRoof = _manual.openRoof,
     response.fanSpeed = _manual.fanSpeed,
     response.pump = _manual.pump
