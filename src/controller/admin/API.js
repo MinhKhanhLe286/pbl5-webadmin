@@ -28,7 +28,7 @@ async function apiTemperature(req, res) {
       light,
       time : convertTime.vietnameseTimeConvert(createdAt)
     }));
-
+    console.log(sanitizedData);
     res.status(200).json(sanitizedData);
   } catch (error) {
     console.error("Error occurred:", error);

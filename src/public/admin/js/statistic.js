@@ -19,14 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = {
-        startTime: $("#start-time").val(), // Sửa lại id đúng
-        endTime: $("#end-time").val(), // Sửa lại id đúng
+        startTime: startTime,
+        endTime: endTime,
       };
 
       fetch_Data(data);
       console.log(`Filtering data from ${startTime} to ${endTime}`);
     });
 });
+
+let chartInstances = {}; // Lưu trữ các biểu đồ đã tạo
 
 function fetch_Data(data) {
   fetch("/admin/API", {
@@ -36,10 +38,12 @@ function fetch_Data(data) {
     },
     body: JSON.stringify(data),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
     .then((data) => {
-      // Kiểm tra dữ liệu từ server
-      if (data && Array.isArray(data)) {
+      if (Array.isArray(data) && data.length > 0) {
         const lightData = data.map((entry) => parseFloat(entry.light));
         const soilData = data.map((entry) => parseFloat(entry.soil));
         const temperatureData = data.map((entry) =>
@@ -49,13 +53,15 @@ function fetch_Data(data) {
         const times = data.map((entry) => entry.time);
         drawChart(times, lightData, temperatureData, soilData, humidityData);
       } else {
-        console.error("Dữ liệu trả về không hợp lệ");
+        console.error("Dữ liệu trả về không hợp lệ hoặc rỗng:", data);
+        alert("Không có dữ liệu trong khoảng thời gian này.");
       }
     })
     .catch((error) => {
       console.error("Lỗi khi gọi API:", error);
     });
 }
+
 function drawChart(times, lightData, temperatureData, soilData, humidityData) {
   loadChart(
     "temperature-chart",
@@ -90,6 +96,7 @@ function drawChart(times, lightData, temperatureData, soilData, humidityData) {
     "#3498db"
   );
 }
+
 function loadChart(
   canvasId,
   label,
@@ -99,10 +106,17 @@ function loadChart(
   borderColor
 ) {
   const ctx = document.getElementById(canvasId).getContext("2d");
-  new Chart(ctx, {
+
+  // Xóa biểu đồ cũ nếu tồn tại
+  if (chartInstances[canvasId]) {
+    chartInstances[canvasId].destroy();
+  }
+
+  // Tạo biểu đồ mới
+  chartInstances[canvasId] = new Chart(ctx, {
     type: "line",
     data: {
-      labels: labels, // Thay vì cố định, nhận từ đầu vào
+      labels: labels,
       datasets: [
         {
           label: label,
