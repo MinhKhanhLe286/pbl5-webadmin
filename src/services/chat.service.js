@@ -18,6 +18,14 @@ class SocketServices {
         socket.on('Switch-to-auto', (data)=>{
             _manual = null;
         });
+        socket.on("Login-Face",(data)=>{
+            _io.sockets.emit("Login-Face-Send-Python", data)
+        })
+        socket.on("Login-Face-From-Python", (data)=>{
+            console.log("Nghe dc data từ python")
+            _io.sockets.emit("Result-Face",data);
+        })
+
     }
 }   
 

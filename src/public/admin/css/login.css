@@ -1,85 +1,112 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .login-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-box {
-    background-color: white;
-    padding: 30px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    border-radius: 8px;
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  border-radius: 8px;
 }
 
 h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
 }
 
 .input-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .input-group label {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
-    display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .login-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .login-btn:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .link-container {
-    text-align: center;
-    margin-top: 10px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .link-container a {
-    color: #007BFF;
-    font-size: 14px;
-    text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .link-container a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.button-group {
+  display: flex; /* Đặt các phần tử con trên cùng một hàng */
+  gap: 10px; /* Khoảng cách giữa các nút */
+  margin-top: 20px; /* Khoảng cách phía trên */
+}
+
+.button-group .login-btn {
+  flex-grow: 1; /* Giúp các nút co giãn theo kích thước tỷ lệ */
+  font-size: 16px; /* Cỡ chữ */
+  padding: 10px; /* Khoảng cách bên trong nút */
+  border: none; /* Xóa đường viền */
+  border-radius: 5px; /* Bo góc */
+  cursor: pointer;
+}
+
+#login-btn {
+  background-color: #4caf50; /* Màu nền cho nút Đăng Nhập */
+  color: white; /* Màu chữ */
+  flex: 7; /* Tỷ lệ chiếm 7/10 */
+}
+
+#login-recognition {
+  background-color: #f39c12; /* Màu nền cho nút Face */
+  color: white; /* Màu chữ */
+  flex: 3; /* Tỷ lệ chiếm 3/10 */
 }
