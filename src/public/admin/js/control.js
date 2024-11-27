@@ -13,10 +13,10 @@ socket.on("Server-response-sensor-data", (data) => {
   let soil = data.soil ?? 200;
 
   // Cập nhật giao diện với dữ liệu nhận được
-  $("#light-intensity").text(light);
-  $("#air-humidity").text(humidity);
-  $("#temperature").text(temperature);
-  $("#soil-moisture").text(soil);
+  $("#light-intensity").text(`${light} %`);
+  $("#air-humidity").text(`${humidity} %`);
+  $("#temperature").text(`${temperature} %`);
+  $("#soil-moisture").text(`${soil} %`);
 });
 
 $(document).ready(() => {

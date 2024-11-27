@@ -31,7 +31,9 @@
             </div>
             <div class="user-info">
                 <i class="ri-user-fill"></i>
-                <span>Admin</span>
+                <span>Admin || Current-time: </span>
+                <span id="current-time"
+                    style="margin-left: 10px; font-weight: normal;"></span>
             </div>
         </header>
         <div class="container">
@@ -80,13 +82,16 @@
                                     class="ri-toggle-line"></i> Switch to Auto
                                 Mode</button>
                             <div class="control-buttons">
-                                <button class ="btnAction" id="fan-control-btn"><i
+                                <button class="btnAction"
+                                    id="fan-control-btn"><i
                                         class="ri-cloud-windy-line"></i> Turn
                                     Off Fan</button>
-                                <button class ="btnAction" id="pump-control-btn"><i
+                                <button class="btnAction"
+                                    id="pump-control-btn"><i
                                         class="ri-contrast-drop-fill"></i> Turn
                                     Off Pump</button>
-                                <button class ="btnAction" id="roof-control-btn"><i
+                                <button class="btnAction"
+                                    id="roof-control-btn"><i
                                         class="ri-building-2-line"></i> Close
                                     Roof</button>
                             </div>
@@ -174,6 +179,24 @@
     });
 });
 
+        </script>
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0'); // Giờ
+                const minutes = String(now.getMinutes()).padStart(2, '0'); // Phút
+                const seconds = String(now.getSeconds()).padStart(2, '0'); // Giây
+            
+                const currentTime = `${hours}:${minutes}:${seconds}`;
+                document.getElementById('current-time').textContent = currentTime;
+            }
+            
+            // Gọi hàm updateClock mỗi giây
+            setInterval(updateClock, 1000);
+            
+            // Gọi ngay lập tức để hiển thị khi trang load
+            updateClock();
+            
         </script>
     </body>
 </html>

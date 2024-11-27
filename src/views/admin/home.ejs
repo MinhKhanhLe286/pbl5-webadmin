@@ -51,7 +51,9 @@
                 </div>
                 <div class="user-info">
                     <i class="ri-user-fill"></i>
-                    <span>Trần Phước Phú - admin</span>
+                    <span>Admin || Current-time: </span>
+                    <span id="current-time"
+                        style="margin-left: 10px; font-weight: normal;"></span>
                 </div>
             </header>
             <main class="main-content">
@@ -207,6 +209,23 @@
                 </section>
             </main>
         </div>
-        <script src="home.js"></script>
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0'); // Giờ
+                const minutes = String(now.getMinutes()).padStart(2, '0'); // Phút
+                const seconds = String(now.getSeconds()).padStart(2, '0'); // Giây
+            
+                const currentTime = `${hours}:${minutes}:${seconds}`;
+                document.getElementById('current-time').textContent = currentTime;
+            }
+            
+            // Gọi hàm updateClock mỗi giây
+            setInterval(updateClock, 1000);
+            
+            // Gọi ngay lập tức để hiển thị khi trang load
+            updateClock();
+            
+        </script>
     </body>
 </html>

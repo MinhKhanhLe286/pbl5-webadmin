@@ -17,7 +17,7 @@
             href="/admin/css/air_humidity.css">
         <script src="/socket.io/socket.io.js"></script>
         <script src="/admin/js/air_humidity.js"></script>
-        
+
     </head>
     <body>
         <header class="top-bar">
@@ -27,7 +27,9 @@
             </div>
             <div class="user-info">
                 <i class="ri-user-fill"></i>
-                <span> Admin</span>
+                <span>Admin || Current-time: </span>
+                <span id="current-time"
+                    style="margin-left: 10px; font-weight: normal;"></span>
             </div>
         </header>
         <div class="container">
@@ -39,8 +41,8 @@
                     <li><a href="/admin/temperature"><i
                                 class="ri-thermometer-line"></i>
                             Temperature</a></li>
-                    <li><a href="/admin/airHumidity"class="active"
-                         ><i class="ri-leaf-line"></i> Air
+                    <li><a href="/admin/airHumidity" class="active"><i
+                                class="ri-leaf-line"></i> Air
                             Humidity</a></li>
                     <li><a href="/admin/light"><i
                                 class="ri-sun-line"></i> Light</a></li>
@@ -103,5 +105,22 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="air-humidity.js"></script>
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0'); // Giờ
+                const minutes = String(now.getMinutes()).padStart(2, '0'); // Phút
+                const seconds = String(now.getSeconds()).padStart(2, '0'); // Giây
+            
+                const currentTime = `${hours}:${minutes}:${seconds}`;
+                document.getElementById('current-time').textContent = currentTime;
+            }
+            
+            // Gọi hàm updateClock mỗi giây
+            setInterval(updateClock, 1000);
+            
+            // Gọi ngay lập tức để hiển thị khi trang load
+            updateClock();
+        </script>
     </body>
 </html>

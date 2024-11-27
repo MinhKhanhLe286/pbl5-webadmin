@@ -54,6 +54,7 @@ function face() {
     socket.on("Result-Face", (res) => {
       if (res === true) {
         // Sửa thành so sánh boolean
+        alert("Đăng nhập thành công!")
         window.location.href = "/admin/home";
       } else {
         alert("Không thể nhận diện được");
