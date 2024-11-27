@@ -17,6 +17,11 @@
             href="/admin/css/control.css">
         <script src="/socket.io/socket.io.js"></script>
         <script src="/admin/js/control.js"></script>
+        <style> 
+            .btnAction{
+                background-color: green;
+            }
+        </style>
     </head>
     <body>
         <header class="top-bar">
@@ -53,8 +58,8 @@
                     <li><a href="/admin/statistic"><i
                                 class="ri-bar-chart-line"></i>
                             Statistic</a></li>
-                    <li><a href="/admin/chat"><i
-                                class="ri-message-line"></i> Chat</a></li>
+                    <!-- <li><a href="/admin/chat"><i
+                                class="ri-message-line"></i> Chat</a></li> -->
                     <li><a href="/authentication/login"><i
                                 class="ri-logout-box-line"></i> Logout</a></li>
                 </ul>
@@ -75,13 +80,13 @@
                                     class="ri-toggle-line"></i> Switch to Auto
                                 Mode</button>
                             <div class="control-buttons">
-                                <button id="fan-control-btn"><i
+                                <button class ="btnAction" id="fan-control-btn"><i
                                         class="ri-cloud-windy-line"></i> Turn
                                     Off Fan</button>
-                                <button id="pump-control-btn"><i
+                                <button class ="btnAction" id="pump-control-btn"><i
                                         class="ri-contrast-drop-fill"></i> Turn
                                     Off Pump</button>
-                                <button id="roof-control-btn"><i
+                                <button class ="btnAction" id="roof-control-btn"><i
                                         class="ri-building-2-line"></i> Close
                                     Roof</button>
                             </div>
